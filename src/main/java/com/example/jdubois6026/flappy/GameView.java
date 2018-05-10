@@ -12,6 +12,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -22,11 +25,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private CharacterSprite characterSprite;
-    public static int gapHeight = 500;
-    public static int velocity = 10;
+    public static int gapHeight = 800;
+    public int flappyWidth = 300;
+    public int flappyHeight = 240;
+    public static int velocity = 15;
     public PipeSprite pipe1, pipe2, pipe3;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
 
     public GameView(Context context) {
         super(context);
@@ -66,7 +72,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),R.drawable.flappysprite));
+        makeLevel();
 
         thread.setRunning(true);
         thread.start();
@@ -87,9 +93,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                         (getResources(), R.drawable.pipe_up), 500,
                 Resources.getSystem().getDisplayMetrics().heightPixels / 2);
 
-        pipe1 = new PipeSprite(pipe_up, pipe_down, 0, 2000);
-        pipe2 = new PipeSprite(pipe_up, pipe_down, -250, 3200);
-        pipe3 = new PipeSprite(pipe_up, pipe_down, 250, 4500);
+        pipe1 = new PipeSprite(pipe_up, pipe_down, 2000, 100);
+        pipe2 = new PipeSprite(pipe_up, pipe_down, 4500, 100);
+        pipe3 = new PipeSprite(pipe_up, pipe_down, 3200, 100);
     }
 
     @Override
@@ -108,6 +114,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
+        logic();
         characterSprite.update();
         pipe1.update();
         pipe2.update();
@@ -127,5 +134,55 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             pipe3.draw(canvas);
 
         }
+    }
+
+    public void logic() {
+
+        List<PipeSprite> pipes = new ArrayList<>();
+        pipes.add(pipe1);
+        pipes.add(pipe2);
+        pipes.add(pipe3);
+
+        for (int i = 0; i < pipes.size(); i++) {
+            //Detect if the character is touching one of the pipes
+            if (characterSprite.y < pipes.get(i).yY + (screenHeight / 2)
+                    - (gapHeight / 2) && characterSprite.x + 300 > pipes.get(i).xX
+                    && characterSprite.x < pipes.get(i).xX + 500) {
+                resetLevel();
+            } else if (characterSprite.y + 240 > (screenHeight / 2) +
+                    (gapHeight / 2) + pipes.get(i).yY
+                    && characterSprite.x + 300 > pipes.get(i).xX
+                    && characterSprite.x < pipes.get(i).xX + 500) {
+                resetLevel();
+            }
+
+            //Detect if the pipe has gone off the left of the
+            //screen and regenerate further ahead
+            if (pipes.get(i).xX + 500 < 0) {
+                Random r = new Random();
+                int value1 = r.nextInt(500);
+                int value2 = r.nextInt(500);
+                pipes.get(i).xX = screenWidth + value1 + 1000;
+                pipes.get(i).yY = value2 - 250;
+            }
+        }
+
+        //Detect if the character has gone off the
+        //bottom or top of the screen
+        if (characterSprite.y + 240 < 0) {
+            resetLevel(); }
+        if (characterSprite.y > screenHeight) {
+            resetLevel(); }
+    }
+
+    public void resetLevel() {
+        characterSprite.y = 100;
+        pipe1.xX = 2000;
+        pipe1.yY = 0;
+        pipe2.xX = 4500;
+        pipe2.yY = 200;
+        pipe3.xX = 3200;
+        pipe3.yY = 250;
+
     }
 }
