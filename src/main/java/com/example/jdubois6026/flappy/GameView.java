@@ -25,9 +25,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private CharacterSprite characterSprite;
+    private Background backgroundImg;
     public static int gapHeight = 800;
-    public int flappyWidth = 300;
-    public int flappyHeight = 240;
+    public int flappyWidth = 240;
+    public int flappyHeight = 171;
     public static int velocity = 15;
     public PipeSprite pipe1, pipe2, pipe3;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -66,7 +67,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public boolean onTouchEvent(MotionEvent event){
-        characterSprite.y = characterSprite.y - (characterSprite.yVelocity * 10);
+        characterSprite.y = characterSprite.y - (characterSprite.yVelocity * 30);
         return super.onTouchEvent(event);
     }
 
@@ -124,10 +125,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas)
     {
+        backgroundImg = new Background(getResizedBitmap
+                (BitmapFactory.decodeResource(getResources(),R.drawable.background), screenWidth, screenHeight));
 
         super.draw(canvas);
         if(canvas!=null) {
-            canvas.drawRGB(0, 100, 205);
+            backgroundImg.draw(canvas);
             characterSprite.draw(canvas);
             pipe1.draw(canvas);
             pipe2.draw(canvas);
@@ -160,9 +163,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             //screen and regenerate further ahead
             if (pipes.get(i).xX + 500 < 0) {
                 Random r = new Random();
-                int value1 = r.nextInt(500);
                 int value2 = r.nextInt(500);
-                pipes.get(i).xX = screenWidth + value1 + 1000;
+                pipes.get(i).xX = screenWidth + 2000;
                 pipes.get(i).yY = value2 - 250;
             }
         }
