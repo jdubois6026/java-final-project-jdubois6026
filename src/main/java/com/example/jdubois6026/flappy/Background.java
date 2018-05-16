@@ -17,8 +17,8 @@ public class Background {
 
     public Background (Bitmap background) {
         image = background;
-        x=100;
-        y=100;
+        x=0;
+        y=0;
 
     }
 
