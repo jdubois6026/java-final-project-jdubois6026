@@ -67,7 +67,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public boolean onTouchEvent(MotionEvent event){
-        characterSprite.y = characterSprite.y - (characterSprite.yVelocity * 30);
+        characterSprite.setYVelocity();
         return super.onTouchEvent(event);
     }
 
@@ -185,6 +185,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         pipe2.yY = 200;
         pipe3.xX = 3200;
         pipe3.yY = 250;
+        characterSprite.yVelocity = 15;
 
     }
 }
