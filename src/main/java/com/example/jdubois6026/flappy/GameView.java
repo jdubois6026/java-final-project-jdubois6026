@@ -30,6 +30,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public int flappyWidth = 240;
     public int flappyHeight = 171;
     public static int velocity = 15;
+    public int score = 0;
     public PipeSprite pipe1, pipe2, pipe3;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -167,7 +168,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 pipes.get(i).xX = screenWidth + 2000;
                 pipes.get(i).yY = value2 - 250;
             }
+
+            if (pipes.get(i).xX == characterSprite.x){
+                score++;
+
+            }
+
         }
+
 
         //Detect if the character has gone off the
         //bottom or top of the screen
@@ -179,6 +187,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void resetLevel() {
         characterSprite.y = 100;
+        score = 0;
         pipe1.xX = 2000;
         pipe1.yY = 0;
         pipe2.xX = 4500;

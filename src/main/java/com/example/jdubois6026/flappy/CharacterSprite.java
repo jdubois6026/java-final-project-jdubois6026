@@ -11,11 +11,11 @@ import android.graphics.Canvas;
 public class CharacterSprite {
     private Bitmap image;
     public int x, y;
-    private int xVelocity = 5;
+    private int xVelocity = 0;
     public int yVelocity;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    public double gravity = 0.5;
+    public double gravity = 1.4;
 
     public CharacterSprite(Bitmap bmp) {
         image = bmp;
@@ -29,18 +29,13 @@ public class CharacterSprite {
     }
 
     public void setYVelocity() {
-        yVelocity = -25;
+        yVelocity = -40;
     }
     
     public void update() {
         yVelocity += gravity;
         y += yVelocity;
-        if (yVelocity == 0) {
-            yVelocity = 15;
-        }
-
-
-
+        x += xVelocity;
     }
 
 }
