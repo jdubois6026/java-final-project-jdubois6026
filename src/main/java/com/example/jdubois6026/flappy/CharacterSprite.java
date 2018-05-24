@@ -15,7 +15,7 @@ public class CharacterSprite {
     public int yVelocity;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    public double gravity = 1.4;
+    public double gravity = 1.7;
 
     public CharacterSprite(Bitmap bmp) {
         image = bmp;

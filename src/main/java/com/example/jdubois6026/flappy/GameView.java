@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static android.graphics.Color.WHITE;
+import static com.example.jdubois6026.flappy.MainThread.canvas;
+
 
 /**
  * Created by jdubois6026 on 5/4/2018.
@@ -25,12 +28,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private CharacterSprite characterSprite;
+    public ScoreText scoreText;
     private Background backgroundImg;
     public static int gapHeight = 800;
     public int flappyWidth = 240;
     public int flappyHeight = 171;
     public static int velocity = 15;
-    public int score = 0;
+    public static int score = 0;
     public PipeSprite pipe1, pipe2, pipe3;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -121,6 +125,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         pipe1.update();
         pipe2.update();
         pipe3.update();
+        scoreText.update();
     }
 
     @Override
@@ -136,6 +141,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             pipe1.draw(canvas);
             pipe2.draw(canvas);
             pipe3.draw(canvas);
+            scoreText.draw(canvas);
 
         }
     }
