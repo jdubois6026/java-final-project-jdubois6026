@@ -14,7 +14,7 @@ import static com.example.jdubois6026.flappy.MainThread.canvas;
 
 public class ScoreText {
 
-    public static float paint;
+    static Paint paint = new Paint();
     private static int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
 
@@ -23,7 +23,6 @@ public class ScoreText {
 
 
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setTextSize(100);
         canvas.drawText(Integer.toString(GameView.score), screenWidth/2, 500, paint);
@@ -31,10 +30,6 @@ public class ScoreText {
     }
 
     public static void update() {
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(100);
-        canvas.drawText(Integer.toString(GameView.score), screenWidth/2, 500, paint);
 
     }
 }

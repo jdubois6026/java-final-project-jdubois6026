@@ -18,6 +18,7 @@ import java.util.Random;
 
 import static android.graphics.Color.WHITE;
 import static com.example.jdubois6026.flappy.MainThread.canvas;
+import static com.example.jdubois6026.flappy.ScoreText.paint;
 
 
 /**
