@@ -103,6 +103,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         pipe1 = new PipeSprite(pipe_up, pipe_down, 2000, 100);
         pipe2 = new PipeSprite(pipe_up, pipe_down, 4500, 100);
         pipe3 = new PipeSprite(pipe_up, pipe_down, 3200, 100);
+        scoreText = new ScoreText();
     }
 
     @Override
@@ -176,9 +177,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 pipes.get(i).yY = value2 - 250;
             }
 
-            if (pipes.get(i).xX == characterSprite.x){
+            //Detect number of pipes the character has passed
+            if (pipes.get(i).xX == (screenWidth/2)){
                 score++;
-
             }
 
         }
