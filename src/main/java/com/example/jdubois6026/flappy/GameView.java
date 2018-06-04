@@ -12,9 +12,12 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import static android.graphics.Color.WHITE;
 import static com.example.jdubois6026.flappy.MainThread.canvas;
@@ -155,6 +158,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         pipes.add(pipe2);
         pipes.add(pipe3);
 
+
         for (int i = 0; i < pipes.size(); i++) {
             //Detect if the character is touching one of the pipes
             if (characterSprite.y < pipes.get(i).yY + (screenHeight / 2)
@@ -177,10 +181,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 pipes.get(i).yY = value2 - 250;
             }
 
-            //Detect number of pipes the character has passed
+            /*Detect number of pipes the character has passed, add score for every pipe passed
             if (pipes.get(i).xX == (screenWidth/2)){
                 score++;
-            }
+            }*/
 
         }
 
