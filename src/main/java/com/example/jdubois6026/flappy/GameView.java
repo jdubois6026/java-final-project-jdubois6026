@@ -16,6 +16,8 @@ import android.view.SurfaceHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -181,21 +183,38 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 pipes.get(i).yY = value2 - 250;
             }
 
-            /*Detect number of pipes the character has passed, add score for every pipe passed
-            if (pipes.get(i).xX == (screenWidth/2)){
+
+            if (pipes.get(i).xX  >= 8-characterSprite.x && pipes.get(i).xX  <= 8+characterSprite.x) {
                 score++;
-            }*/
 
+            }
+
+            score = score/10;
+
+            /*
+            final Timer timer = new Timer();
+            //Set the schedule function
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    score++;
+                    timer.cancel();
+                }
+            }, 3750, 2000);
+            */
+
+
+            //Detect if the character has gone off the
+            //bottom or top of the screen
+            if (characterSprite.y + 240 < 0) {
+                resetLevel();
+            }
+            if (characterSprite.y > screenHeight) {
+                resetLevel();
+            }
         }
-
-
-        //Detect if the character has gone off the
-        //bottom or top of the screen
-        if (characterSprite.y + 240 < 0) {
-            resetLevel(); }
-        if (characterSprite.y > screenHeight) {
-            resetLevel(); }
     }
+
 
     public void resetLevel() {
         characterSprite.y = 100;
